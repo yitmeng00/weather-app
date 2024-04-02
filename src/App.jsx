@@ -1,13 +1,13 @@
-import { useState } from "react";
 import "./App.css";
+import Sidebar from "./layouts/Sidebar";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
         <>
-            <div>
-                <h1 className="text-3xl font-bold underline">Hello world!</h1>
+            <div className="flex flex-row h-screen">
+                <Sidebar />
+                <Dashboard />
             </div>
         </>
     );
