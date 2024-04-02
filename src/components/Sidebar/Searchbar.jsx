@@ -6,7 +6,7 @@ export function Searchbar() {
                 name="city-input"
                 id="weather__city-input"
                 placeholder="Search for a city"
-                className="p-2 border border-black"
+                className="p-2 border border-black rounded-md"
             />
         </div>
     );
