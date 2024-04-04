@@ -1,9 +1,9 @@
-export function WeatherInfo({ weatherData }) {
-    if (!weatherData) {
+export function WeatherInfo({ currentWeatherData }) {
+    if (!currentWeatherData) {
         return <div>Loading...</div>;
     }
 
-    const { weather, main, dt } = weatherData;
+    const { weather, main, dt } = currentWeatherData;
     const { description, icon } = weather[0];
     const { temp } = main;
 

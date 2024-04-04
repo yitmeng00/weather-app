@@ -5,7 +5,7 @@ import axios from "axios";
 
 function App() {
     const [inputCity, setInputCity] = useState("");
-    const [weatherData, setWeatherData] = useState(null);
+    const [currentWeatherData, setCurrentWeatherData] = useState(null);
 
     useEffect(() => {
         let isMounted = true;
@@ -28,7 +28,7 @@ function App() {
                             }&units=metric&lang=en`
                         );
                         if (isMounted) {
-                            setWeatherData(weatherResp.data);
+                            setCurrentWeatherData(weatherResp.data);
                         }
                     }
                 } else if (navigator.geolocation) {
@@ -43,7 +43,7 @@ function App() {
                                 }&units=metric&lang=en`
                             );
                             if (isMounted) {
-                                setWeatherData(weatherResp.data);
+                                setCurrentWeatherData(weatherResp.data);
                             }
                         },
                         (error) => {
@@ -75,9 +75,9 @@ function App() {
             <div className="flex flex-row h-screen">
                 <Sidebar
                     setInputCity={setInputCity}
-                    weatherData={weatherData}
+                    currentWeatherData={currentWeatherData}
                 />
-                <Dashboard />
+                <Dashboard currentWeatherData={currentWeatherData} />
             </div>
         </>
     );
