@@ -6,6 +6,8 @@ import axios from "axios";
 function App() {
     const [inputCity, setInputCity] = useState("");
     const [currentWeatherData, setCurrentWeatherData] = useState(null);
+    const [forecastWeatherData, setForecastWeatherData] = useState(null);
+    const [airQualityData, setAirQualityData] = useState(null);
 
     useEffect(() => {
         let isMounted = true;
@@ -21,14 +23,37 @@ function App() {
                     if (isMounted) {
                         const { lat, lon } = latLongResp.data[0];
 
-                        const weatherResp = await axios.get(
+                        // Fetch current weather data
+                        const currentWeatherResp = await axios.get(
                             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
                                 import.meta.env
                                     .VITE_REACT_APP_OPEN_WEATHER_APPID
                             }&units=metric&lang=en`
                         );
                         if (isMounted) {
-                            setCurrentWeatherData(weatherResp.data);
+                            setCurrentWeatherData(currentWeatherResp.data);
+                        }
+
+                        // Fetch forecast weather data
+                        const forecastWeatherResp = await axios.get(
+                            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${
+                                import.meta.env
+                                    .VITE_REACT_APP_OPEN_WEATHER_APPID
+                            }&units=metric&lang=en`
+                        );
+                        if (isMounted) {
+                            setForecastWeatherData(forecastWeatherResp.data);
+                        }
+
+                        // Fetch air quality data
+                        const airQualityResp = await axios.get(
+                            `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${
+                                import.meta.env
+                                    .VITE_REACT_APP_OPEN_WEATHER_APPID
+                            }`
+                        );
+                        if (isMounted) {
+                            setAirQualityData(airQualityResp.data);
                         }
                     }
                 } else if (navigator.geolocation) {
@@ -36,14 +61,39 @@ function App() {
                         async (position) => {
                             const { latitude, longitude } = position.coords;
 
-                            const weatherResp = await axios.get(
+                            // Fetch current weather data
+                            const currentWeatherResp = await axios.get(
                                 `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${
                                     import.meta.env
                                         .VITE_REACT_APP_OPEN_WEATHER_APPID
                                 }&units=metric&lang=en`
                             );
                             if (isMounted) {
-                                setCurrentWeatherData(weatherResp.data);
+                                setCurrentWeatherData(currentWeatherResp.data);
+                            }
+
+                            // Fetch forecast weather data
+                            const forecastWeatherResp = await axios.get(
+                                `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${
+                                    import.meta.env
+                                        .VITE_REACT_APP_OPEN_WEATHER_APPID
+                                }&units=metric&lang=en`
+                            );
+                            if (isMounted) {
+                                setForecastWeatherData(
+                                    forecastWeatherResp.data
+                                );
+                            }
+
+                            // Fetch air quality data
+                            const airQualityResp = await axios.get(
+                                `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${
+                                    import.meta.env
+                                        .VITE_REACT_APP_OPEN_WEATHER_APPID
+                                }`
+                            );
+                            if (isMounted) {
+                                setAirQualityData(airQualityResp.data);
                             }
                         },
                         (error) => {
@@ -77,7 +127,11 @@ function App() {
                     setInputCity={setInputCity}
                     currentWeatherData={currentWeatherData}
                 />
-                <Dashboard currentWeatherData={currentWeatherData} />
+                <Dashboard
+                    currentWeatherData={currentWeatherData}
+                    forecastWeatherData={forecastWeatherData}
+                    airQualityData={airQualityData}
+                />
             </div>
         </>
     );

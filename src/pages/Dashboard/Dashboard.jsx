@@ -4,12 +4,19 @@ import {
     ForecastWeather,
 } from "../../components/Dashboard";
 
-export function Dashboard() {
+export function Dashboard({
+    currentWeatherData,
+    forecastWeatherData,
+    airQualityData,
+}) {
     return (
         <section className="w-full p-10 bg-gray-100">
-            <TodayWeather />
-            <TodayHighlight />
-            <ForecastWeather />
+            <TodayWeather forecastWeatherData={forecastWeatherData} />
+            <TodayHighlight
+                currentWeatherData={currentWeatherData}
+                airQualityData={airQualityData}
+            />
+            <ForecastWeather forecastWeatherData={forecastWeatherData} />
         </section>
     );
 }
