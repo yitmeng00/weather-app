@@ -1,12 +1,12 @@
-export function CityInfo({ weatherData }) {
-    if (!weatherData) {
+export function CityInfo({ currentWeatherData }) {
+    if (!currentWeatherData) {
         return <div>Loading...</div>;
     }
 
     const {
         name,
         sys: { country },
-    } = weatherData;
+    } = currentWeatherData;
 
     return (
         <div className="border border-black p-7 text-center rounded-md">

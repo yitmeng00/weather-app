@@ -1,12 +1,12 @@
 import { Searchbar, WeatherInfo, CityInfo } from "../../components/Sidebar";
 
-export function Sidebar({ setInputCity, weatherData }) {
+export function Sidebar({ setInputCity, currentWeatherData }) {
     return (
         <section className="flex flex-col p-10">
             <Searchbar setInputCity={setInputCity} />
-            <WeatherInfo weatherData={weatherData} />
+            <WeatherInfo currentWeatherData={currentWeatherData} />
             <hr className="my-10" />
-            <CityInfo weatherData={weatherData} />
+            <CityInfo currentWeatherData={currentWeatherData} />
         </section>
     );
 }
