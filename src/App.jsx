@@ -1,12 +1,82 @@
-import "./App.css";
+import { useState, useEffect } from "react";
 import Sidebar from "./layouts/Sidebar";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
+import axios from "axios";
 
 function App() {
+    const [inputCity, setInputCity] = useState("");
+    const [weatherData, setWeatherData] = useState(null);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchData = async () => {
+            try {
+                if (inputCity.trim() !== "") {
+                    const latLongResp = await axios.get(
+                        `http://api.openweathermap.org/geo/1.0/direct?q=${inputCity}&limit=1&appid=${
+                            import.meta.env.VITE_REACT_APP_OPEN_WEATHER_APPID
+                        }`
+                    );
+                    if (isMounted) {
+                        const { lat, lon } = latLongResp.data[0];
+
+                        const weatherResp = await axios.get(
+                            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
+                                import.meta.env
+                                    .VITE_REACT_APP_OPEN_WEATHER_APPID
+                            }&units=metric&lang=en`
+                        );
+                        if (isMounted) {
+                            setWeatherData(weatherResp.data);
+                        }
+                    }
+                } else if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        async (position) => {
+                            const { latitude, longitude } = position.coords;
+
+                            const weatherResp = await axios.get(
+                                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${
+                                    import.meta.env
+                                        .VITE_REACT_APP_OPEN_WEATHER_APPID
+                                }&units=metric&lang=en`
+                            );
+                            if (isMounted) {
+                                setWeatherData(weatherResp.data);
+                            }
+                        },
+                        (error) => {
+                            console.error(
+                                "Error getting geolocation:",
+                                error.message
+                            );
+                        }
+                    );
+                } else {
+                    console.error(
+                        "Geolocation is not supported by this browser."
+                    );
+                }
+            } catch (error) {
+                console.error("Error fetching city data:", error);
+            }
+        };
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [inputCity]);
+
     return (
         <>
             <div className="flex flex-row h-screen">
-                <Sidebar />
+                <Sidebar
+                    setInputCity={setInputCity}
+                    weatherData={weatherData}
+                />
                 <Dashboard />
             </div>
         </>
