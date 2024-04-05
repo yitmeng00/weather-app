@@ -22,7 +22,7 @@ export function TodayWeather({ forecastWeatherData }) {
             <div className="mb-5 font-bold">
                 <p>Today's Full Day Weather</p>
             </div>
-            <div className="flex flex-row gap-5 mb-10 overflow-x-scroll overflow-hidden">
+            <div className="flex flex-row gap-5 mb-10 overflow-x-scroll overflow-hidden scrollbar-hidden">
                 {todayWeatherList.map((weatherItem, index) => (
                     <div
                         key={index}
