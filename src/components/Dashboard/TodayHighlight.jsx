@@ -78,7 +78,7 @@ export function TodayHighlight({ currentWeatherData, airQualityData }) {
             <div className="mb-5 font-bold">
                 <p>Today's Highlights</p>
             </div>
-            <div className="grid grid-cols-6 gap-5 mb-10">
+            <div className="grid 2xl:grid-cols-6 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mb-10">
                 <div className="bg-white p-5 rounded-md">
                     <div className="font-bold text-gray-500 mb-4">
                         <p>
@@ -180,11 +180,11 @@ export function TodayHighlight({ currentWeatherData, airQualityData }) {
                         </div>
                     </div>
                     <div className="text-gray-500">
-                        {aqiData.map((aqidata, key) => {
+                        {aqiData.map((aqidata, index) => {
                             const icon = getFontAwesomeIcon(aqidata.icon);
                             if (aqidata.index === aqi) {
                                 return (
-                                    <div className="flex flex-row gap-1 items-center">
+                                    <div key={index} className="flex flex-row gap-1 items-center">
                                         <p>
                                             {aqidata.qualitative_name}
                                         </p>
