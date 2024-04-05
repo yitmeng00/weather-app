@@ -27,7 +27,7 @@ export function Searchbar({ setInputCity }) {
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    className="p-3 border border-black rounded-md pe-10"
+                    className="p-3 border border-black rounded-md pe-10 w-full"
                 />
                 <button
                     onClick={handleSearch}

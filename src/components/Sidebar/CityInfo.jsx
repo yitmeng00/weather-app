@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+
 export function CityInfo({ currentWeatherData }) {
     if (!currentWeatherData) {
         return <div>Loading...</div>;
@@ -9,8 +12,10 @@ export function CityInfo({ currentWeatherData }) {
     } = currentWeatherData;
 
     return (
-        <div className="border border-black p-7 text-center rounded-md">
-            <p id="weather__city-name">{`${name}, ${country}`}</p>
+        <div className="shadow-xl shadow-gray-300 p-7 text-center text-xl rounded-md font-bold">
+            <p id="weather__city-name">
+                <FontAwesomeIcon icon={faLocationDot} /> {`${name}, ${country}`}
+            </p>
         </div>
     );
 }

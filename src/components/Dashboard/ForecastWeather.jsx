@@ -1,3 +1,5 @@
+import weatherIconData from "../../data/weathericon.json";
+
 export function ForecastWeather({ forecastWeatherData }) {
     if (!forecastWeatherData) {
         return <div>Loading...</div>;
@@ -10,34 +12,50 @@ export function ForecastWeather({ forecastWeatherData }) {
     const day = String(today.getDate()).padStart(2, "0");
     const todayDate = `${year}-${month}-${day}`;
 
-    // Filter the forecastWeatherData.list array to get elements starting from today
+    // Filter the forecastWeatherData.list array to get elements starting from tommorow
     const forecastWeatherList = forecastWeatherData.list.filter(
         (item) => new Date(item.dt_txt).toISOString().slice(0, 10) > todayDate
     );
 
     return (
         <div>
-            <div className="mb-5">
-                <p>4-day Forecast</p>
+            <div className="mb-5 font-bold">
+                <p>5-day Forecast</p>
             </div>
-            <div className="flex flex-row gap-5 mb-10 overflow-x-scroll">
+            <div className="flex flex-row gap-5 mb-10 overflow-x-scroll overflow-hidden">
                 {forecastWeatherList.map((weatherItem, index) => (
                     <div
                         key={index}
-                        className="bg-white p-5 rounded-md text-center"
+                        className="bg-white p-5 rounded-md text-center w-52 flex-shrink-0"
                     >
-                        <div>
-                            <p>{weatherItem.dt_txt}</p>
+                        <div className="mb-3">
+                            <p>{formatDateTime(weatherItem.dt_txt)}</p>
                         </div>
-                        <div>
-                            <p>{weatherItem.weather[0].icon}</p>
+                        <div className="flex justify-center mb-3">
+                            {/* Render weather icon using the imported JSON data */}
+                            {weatherIconData.map((iconItem, index) => {
+                                if (
+                                    iconItem.name ===
+                                    weatherItem.weather[0].icon
+                                ) {
+                                    return (
+                                        <img
+                                            key={index}
+                                            src={iconItem.url}
+                                            alt={iconItem.name}
+                                            className="size-10"
+                                        />
+                                    );
+                                }
+                                return null;
+                            })}
                         </div>
                         <div className="flex flex-row gap-3 justify-center">
-                            <div>
-                                <p>{weatherItem.main.temp_min}°C</p>
+                            <div className="inline-block">
+                                <p className="inline">{weatherItem.main.temp_max} °C</p>
                             </div>
-                            <div>
-                                <p>{weatherItem.main.temp_max}°C</p>
+                            <div className="text-gray-500">
+                                <p>{weatherItem.main.temp_min} °C</p>
                             </div>
                         </div>
                     </div>
@@ -45,4 +63,25 @@ export function ForecastWeather({ forecastWeatherData }) {
             </div>
         </div>
     );
+}
+
+function formatDateTime(dt_txt) {
+    const dateParts = dt_txt.split(" ")[0].split("-");
+    const timePart = dt_txt.split(" ")[1];
+
+    const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    const formattedDate = date.toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "long",
+    });
+    const formattedTime = new Date(`2000-01-01T${timePart}`).toLocaleTimeString(
+        "en-US",
+        {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        }
+    );
+
+    return `${formattedDate}, ${formattedTime}`;
 }

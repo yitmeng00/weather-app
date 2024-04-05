@@ -1,3 +1,5 @@
+import weatherIconData from "../../data/weathericon.json";
+
 export function TodayWeather({ forecastWeatherData }) {
     if (!forecastWeatherData) {
         return <div>Loading...</div>;
@@ -17,27 +19,43 @@ export function TodayWeather({ forecastWeatherData }) {
 
     return (
         <div>
-            <div className="mb-5">
+            <div className="mb-5 font-bold">
                 <p>Today's Full Day Weather</p>
             </div>
-            <div className="flex flex-row gap-5 mb-10 overflow-x-scroll">
+            <div className="flex flex-row gap-5 mb-10 overflow-x-scroll overflow-hidden">
                 {todayWeatherList.map((weatherItem, index) => (
                     <div
                         key={index}
-                        className="bg-white p-5 rounded-md text-center"
+                        className="bg-white p-5 rounded-md text-center w-52 flex-shrink-0"
                     >
-                        <div>
-                            <p>{weatherItem.dt_txt}</p>
+                        <div className="mb-3">
+                            <p>{formatDateTime(weatherItem.dt_txt)}</p>
                         </div>
-                        <div>
-                            <p>{weatherItem.weather[0].icon}</p>
+                        <div className="flex justify-center mb-3">
+                            {/* Render weather icon using the imported JSON data */}
+                            {weatherIconData.map((iconItem, index) => {
+                                if (
+                                    iconItem.name ===
+                                    weatherItem.weather[0].icon
+                                ) {
+                                    return (
+                                        <img
+                                            key={index}
+                                            src={iconItem.url}
+                                            alt={iconItem.name}
+                                            className="size-10"
+                                        />
+                                    );
+                                }
+                                return null;
+                            })}
                         </div>
                         <div className="flex flex-row gap-3 justify-center">
                             <div>
-                                <p>{weatherItem.main.temp_min}°C</p>
+                                <p>{weatherItem.main.temp_max} °C</p>
                             </div>
-                            <div>
-                                <p>{weatherItem.main.temp_max}°C</p>
+                            <div className="text-gray-500">
+                                <p>{weatherItem.main.temp_min} °C</p>
                             </div>
                         </div>
                     </div>
@@ -45,4 +63,19 @@ export function TodayWeather({ forecastWeatherData }) {
             </div>
         </div>
     );
+}
+
+function formatDateTime(dt_txt) {
+    const timePart = dt_txt.split(" ")[1];
+
+    const formattedTime = new Date(`2000-01-01T${timePart}`).toLocaleTimeString(
+        "en-US",
+        {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        }
+    );
+
+    return `${formattedTime}`;
 }
