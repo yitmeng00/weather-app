@@ -1,0 +1,74 @@
+[
+    {
+        "name": "01d",
+        "url": "src/assets/weather/clearsky_day.png"
+    },
+    {
+        "name": "01n",
+        "url": "src/assets/weather/clearsky_night.png"
+    },
+    {
+        "name": "02d",
+        "url": "src/assets/weather/fewclouds_day.png"
+    },
+    {
+        "name": "02n",
+        "url": "src/assets/weather/fewclouds_night.png"
+    },
+    {
+        "name": "03d",
+        "url": "src/assets/weather/scatteredclouds_day.png"
+    },
+    {
+        "name": "03n",
+        "url": "src/assets/weather/scatteredclouds_night.png"
+    },
+    {
+        "name": "04d",
+        "url": "src/assets/weather/brokenclouds_day.png"
+    },
+    {
+        "name": "04n",
+        "url": "src/assets/weather/brokenclouds_night.png"
+    },
+    {
+        "name": "09d",
+        "url": "src/assets/weather/showerrain_day.png"
+    },
+    {
+        "name": "09n",
+        "url": "src/assets/weather/showerrain_night.png"
+    },
+    {
+        "name": "10d",
+        "url": "src/assets/weather/rain.png"
+    },
+    {
+        "name": "10n",
+        "url": "src/assets/weather/rain.png"
+    },
+    {
+        "name": "11d",
+        "url": "src/assets/weather/thunderstorm.png"
+    },
+    {
+        "name": "11n",
+        "url": "src/assets/weather/thunderstorm.png"
+    },
+    {
+        "name": "13d",
+        "url": "src/assets/weather/snow.png"
+    },
+    {
+        "name": "13n",
+        "url": "src/assets/weather/snow.png"
+    },
+    {
+        "name": "50d",
+        "url": "src/assets/weather/mist.png"
+    },
+    {
+        "name": "50n",
+        "url": "src/assets/weather/mist.png"
+    }
+]
