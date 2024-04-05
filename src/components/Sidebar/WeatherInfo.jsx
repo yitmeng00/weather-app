@@ -31,7 +31,7 @@ export function WeatherInfo({ currentWeatherData }) {
                 />
             </div>
             <div className="flex flex-row mb-8">
-                <p id="weather__temp" className="text-8xl">
+                <p id="weather__temp" className="xl:text-8xl lg:text-6xl text-8xl">
                     {temp}
                 </p>
                 <span className="text-3xl">°C</span>

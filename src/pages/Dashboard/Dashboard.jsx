@@ -10,7 +10,7 @@ export function Dashboard({
     airQualityData,
 }) {
     return (
-        <section className="w-3/4 p-10 bg-gradient-to-r from-gray-200 from-10% via-gray-300 via-30% to-gray-400 to-90% overflow-y-scroll overflow-hidden">
+        <section className="lg:w-3/4 w-full p-10 bg-gradient-to-r from-gray-200 from-10% via-gray-300 via-30% to-gray-400 to-90% lg:overflow-y-scroll lg:overflow-hidden">
             <TodayWeather forecastWeatherData={forecastWeatherData} />
             <TodayHighlight
                 currentWeatherData={currentWeatherData}
