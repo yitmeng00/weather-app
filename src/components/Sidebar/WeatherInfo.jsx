@@ -1,3 +1,5 @@
+import weatherIconData from "../../data/weathericon.json";
+
 export function WeatherInfo({ currentWeatherData }) {
     if (!currentWeatherData) {
         return <div>Loading...</div>;
@@ -7,7 +9,8 @@ export function WeatherInfo({ currentWeatherData }) {
     const { description, icon } = weather[0];
     const { temp } = main;
 
-    const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    const weatherIcon = weatherIconData.find((item) => item.name === icon);
+    const iconUrl = weatherIcon ? weatherIcon.url : "";
 
     const dateTime = new Date(dt * 1000); // Convert seconds to milliseconds
     const formattedDateTime = dateTime.toLocaleString("en-US", {
@@ -24,11 +27,11 @@ export function WeatherInfo({ currentWeatherData }) {
                     src={iconUrl}
                     alt="weather-icon"
                     id="weather__icon"
-                    className="size-40"
+                    className="size-56"
                 />
             </div>
             <div className="flex flex-row mb-8">
-                <p id="weather__temp" className="text-7xl">
+                <p id="weather__temp" className="text-8xl">
                     {temp}
                 </p>
                 <span className="text-3xl">°C</span>

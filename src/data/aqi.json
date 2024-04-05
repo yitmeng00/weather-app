@@ -1,0 +1,27 @@
+[
+    {
+        "index": 1,
+        "qualitative_name": "Good",
+        "icon": "faFaceLaugh"
+    },
+    {
+        "index": 2,
+        "qualitative_name": "Fair",
+        "icon": "faFaceSmile"
+    },
+    {
+        "index": 3,
+        "qualitative_name": "Moderate",
+        "icon": "faFaceMeh"
+    },
+    {
+        "index": 4,
+        "qualitative_name": "Poor",
+        "icon": "faFaceFrownOpen"
+    },
+    {
+        "index": 5,
+        "qualitative_name": "Very Poor",
+        "icon": "faFaceFrown"
+    }
+]
