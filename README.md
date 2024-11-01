@@ -32,5 +32,15 @@ This app was built using the following technologies:
 - CSS
 - Open Weather API
 
+## Installation
+
+To run this app locally, you’ll need an API key from [OpenWeather](https://openweathermap.org/). Clone this repository and save the key in an environment variable, then run the following commands:
+
+```bash
+npm install
+npm run dev
+```
+
 ## License
+
 This project does not has any license.
