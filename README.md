@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/React-19.x-61DAFB?logo=react)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4.x-38B2AC?logo=tailwind-css)
 
-> A simple, responsive weather application that delivers real-time weather updates, hourly forecasts, and multi-day outlooks — powered by the OpenWeather API.
+> A simple, responsive weather application that delivers current weather updates, 5-hourly forecasts, and multi-day outlooks — powered by the OpenWeather API.
 
 ---
 
@@ -33,7 +33,7 @@ This weather app is designed to provide accurate and up-to-date weather informat
 
 | Feature | Description |
 |---|---|
-| 🌡️ Real-Time Weather | Current temperature, humidity, wind speed, and conditions |
+| 🌡️ Current Weather | Current temperature, humidity, wind speed, and conditions |
 | ⏱️ 3-Hourly Forecast | Weather breakdown in 3-hour intervals for the current day |
 | 📅 Multi-Day Outlook | Weather forecast spanning the next 5 days |
 | 📍 Auto Location | Automatically detects and displays local weather |
