@@ -55,7 +55,7 @@ This weather app is designed to provide accurate and up-to-date weather informat
 
 | Current Weather | Today's Weather & Highlights | 5-day Forecast |
 |---|---|---|
-| ![Mobile Home](screenshots/mobile-view1.png) | ![Mobile Search](screenshots/mobile-view2.png) | ![Mobile Forecast](screenshots/mobile-view3.png) |
+| ![Mobile Current Weather](screenshots/mobile-view1.png) | ![Mobile Today Highlights](screenshots/mobile-view2.png) | ![Mobile Forecast](screenshots/mobile-view3.png) |
 
 ---
 
