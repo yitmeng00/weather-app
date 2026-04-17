@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faSpinner, faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
 
-export function Searchbar({ setInputCity, loading }) {
+export function Searchbar({ setInputCity, onLocate, loading }) {
     const [city, setCity] = useState("");
     const [focused, setFocused] = useState(false);
 
@@ -28,6 +28,15 @@ export function Searchbar({ setInputCity, loading }) {
                     className="flex-1 bg-transparent outline-none text-sm text-white placeholder:text-slate-400 py-3"
                     aria-label="Search for a city"
                 />
+                <button
+                    onClick={onLocate}
+                    disabled={loading}
+                    className="pl-3 py-3 text-slate-400 hover:text-sky-400 transition-colors duration-150 hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Use my location"
+                    title="Use my location"
+                >
+                    <FontAwesomeIcon icon={faLocationCrosshairs} className="text-sm" />
+                </button>
                 <button
                     onClick={handleSearch}
                     disabled={loading}

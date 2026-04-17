@@ -88,6 +88,7 @@ function App() {
         <div className="flex flex-col lg:flex-row min-h-screen">
             <Sidebar
                 setInputCity={setInputCity}
+                onLocate={fetchByGeolocation}
                 currentWeatherData={currentWeatherData}
                 loading={loading}
             />
