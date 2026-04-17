@@ -4,6 +4,9 @@ import { Dashboard } from "./pages/Dashboard/Dashboard";
 import axios from "axios";
 
 const API_KEY = import.meta.env.VITE_REACT_APP_OPEN_WEATHER_APPID;
+const API_VERSION = 2.5;
+const API_BASE_ENDPOINT = "https://api.openweathermap.org/data/";
+const UNITS = "metric";
 
 function App() {
     const [inputCity, setInputCity] = useState("");
@@ -19,18 +22,15 @@ function App() {
             setError(null);
 
             const [current, forecast, air] = await Promise.all([
-                axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
-                    params: { lat, lon, appid: API_KEY, units: "metric" },
+                axios.get(`${API_BASE_ENDPOINT}${API_VERSION}/weather`, {
+                    params: { lat, lon, appid: API_KEY, units: UNITS },
                 }),
-                axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
-                    params: { lat, lon, appid: API_KEY, units: "metric" },
+                axios.get(`${API_BASE_ENDPOINT}${API_VERSION}/forecast`, {
+                    params: { lat, lon, appid: API_KEY, units: UNITS },
                 }),
-                axios.get(
-                    `https://api.openweathermap.org/data/2.5/air_pollution`,
-                    {
-                        params: { lat, lon, appid: API_KEY },
-                    },
-                ),
+                axios.get(`${API_BASE_ENDPOINT}${API_VERSION}/air_pollution`, {
+                    params: { lat, lon, appid: API_KEY },
+                }),
             ]);
 
             setCurrentWeatherData(current.data);
