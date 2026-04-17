@@ -13,7 +13,6 @@ function App() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // Reusable fetch function
     const fetchWeatherByCoords = async (lat, lon) => {
         try {
             setLoading(true);
@@ -39,51 +38,40 @@ function App() {
             setAirQualityData(air.data);
         } catch (err) {
             console.error(err);
-            setError("Failed to fetch weather data");
+            setError("Unable to fetch weather data. Please try again.");
         } finally {
             setLoading(false);
         }
     };
 
-    // Fetch by city
     const fetchByCity = async (city) => {
         try {
+            setLoading(true);
+            setError(null);
             const res = await axios.get(
                 `http://api.openweathermap.org/geo/1.0/direct`,
                 {
                     params: { q: city, limit: 1, appid: API_KEY },
                 },
             );
-
-            if (!res.data.length) {
-                throw new Error("City not found");
-            }
-
+            if (!res.data.length) throw new Error(`City "${city}" not found.`);
             const { lat, lon } = res.data[0];
-            fetchWeatherByCoords(lat, lon);
+            await fetchWeatherByCoords(lat, lon);
         } catch (err) {
             setError(err.message);
+            setLoading(false);
         }
     };
 
-    // Fetch by geolocation
     const fetchByGeolocation = () => {
         if (!navigator.geolocation) {
-            setError("Geolocation not supported");
+            fetchByCity("Kuala Lumpur");
             return;
         }
-
         navigator.geolocation.getCurrentPosition(
-            (pos) => {
-                const { latitude, longitude } = pos.coords;
-                fetchWeatherByCoords(latitude, longitude);
-            },
-            (err) => {
-                console.warn("Geolocation error:", err.message);
-
-                // Fallback to default city
-                fetchByCity("Kuala Lumpur");
-            },
+            (pos) =>
+                fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude),
+            () => fetchByCity("Kuala Lumpur"),
             { timeout: 10000 },
         );
     };
@@ -97,12 +85,13 @@ function App() {
     }, [inputCity]);
 
     return (
-        <div className="flex flex-col lg:flex-row h-screen">
+        <div className="flex flex-col lg:flex-row min-h-screen">
             <Sidebar
                 setInputCity={setInputCity}
+                onLocate={fetchByGeolocation}
                 currentWeatherData={currentWeatherData}
+                loading={loading}
             />
-
             <Dashboard
                 currentWeatherData={currentWeatherData}
                 forecastWeatherData={forecastWeatherData}

@@ -1,40 +1,53 @@
 import { useState } from "react";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faSpinner, faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
 
-export function Searchbar({ setInputCity }) {
+export function Searchbar({ setInputCity, onLocate, loading }) {
     const [city, setCity] = useState("");
+    const [focused, setFocused] = useState(false);
 
     const handleSearch = () => {
-        setInputCity(city);
+        if (city.trim()) setInputCity(city.trim());
     };
 
-    const handleKeyPress = (e) => {
-        if (e.key === "Enter") {
-            handleSearch();
-        }
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") handleSearch();
     };
 
     return (
         <div className="mb-8">
-            <div className="relative">
+            <div className={`flex items-center rounded-xl px-4 py-0 border transition-all duration-200 bg-white/5 ${focused ? "border-sky-400/50 bg-sky-400/5" : "border-white/10"}`}>
                 <input
                     type="text"
-                    name="city-input"
-                    id="weather__city-input"
-                    placeholder="Search for a city"
+                    placeholder="Search city..."
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    onKeyDown={handleKeyPress}
-                    className="p-3 border border-black rounded-md pe-10 w-full"
+                    onKeyDown={handleKeyDown}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
+                    className="flex-1 bg-transparent outline-none text-sm text-white placeholder:text-slate-400 py-3"
+                    aria-label="Search for a city"
                 />
                 <button
-                    onClick={handleSearch}
-                    type="button"
-                    className="absolute right-0 p-3"
+                    onClick={onLocate}
+                    disabled={loading}
+                    className="pl-3 py-3 text-slate-400 hover:text-sky-400 transition-colors duration-150 hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Use my location"
+                    title="Use my location"
                 >
-                    <FontAwesomeIcon icon={faSearch} />
+                    <FontAwesomeIcon icon={faLocationCrosshairs} className="text-sm" />
+                </button>
+                <button
+                    onClick={handleSearch}
+                    disabled={loading}
+                    className="pl-3 py-3 text-slate-400 hover:text-sky-400 transition-colors duration-150 hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Search"
+                >
+                    <FontAwesomeIcon
+                        icon={loading ? faSpinner : faSearch}
+                        spin={loading}
+                        className="text-sm"
+                    />
                 </button>
             </div>
         </div>
