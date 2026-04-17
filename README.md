@@ -11,7 +11,7 @@
 
 ## Table of Contents
 
-- [Introduction](#introduction)
+- [Overview](#overview)
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Technologies Used](#technologies-used)
@@ -23,7 +23,7 @@
 
 ---
 
-## Introduction
+## Overview
 
 This weather app is designed to provide accurate and up-to-date weather information, helping users stay informed about conditions at their current location or any location worldwide. The app is fully responsive and optimised for both web and mobile experiences.
 
