@@ -3,7 +3,7 @@ import Sidebar from "./layouts/Sidebar";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE_REACT_APP_OPEN_WEATHER_APPID;
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const API_VERSION = 2.5;
 const API_BASE_ENDPOINT = "https://api.openweathermap.org/data/";
 const UNITS = "metric";
@@ -17,6 +17,12 @@ function App() {
     const [loading, setLoading] = useState(false);
 
     const fetchWeatherByCoords = async (lat, lon) => {
+        if (!API_KEY) {
+            setError("Missing OpenWeather API key.");
+            setLoading(false);
+            return;
+        }
+
         try {
             setLoading(true);
             setError(null);
@@ -49,7 +55,7 @@ function App() {
             setLoading(true);
             setError(null);
             const res = await axios.get(
-                `http://api.openweathermap.org/geo/1.0/direct`,
+                `https://api.openweathermap.org/geo/1.0/direct`,
                 {
                     params: { q: city, limit: 1, appid: API_KEY },
                 },
