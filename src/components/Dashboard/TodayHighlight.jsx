@@ -46,7 +46,7 @@ export function TodayHighlight({
         return (
             <div className="mb-8">
                 <p className="md:text-[16px] text-sm font-medium uppercase tracking-widest text-slate-500 mb-4">
-                    Today's Highlights
+                    Today&apos;s Highlights
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-3">
                     {Array.from({ length: 6 }).map((_, i) => (
@@ -75,7 +75,7 @@ export function TodayHighlight({
     return (
         <div className="mb-8">
             <p className="md:text-[16px] text-sm font-medium uppercase tracking-widest text-slate-500 mb-4">
-                Today's Highlights
+                Today&apos;s Highlights
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
                 {/* Feels Like */}

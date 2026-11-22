@@ -2,7 +2,7 @@ import { Searchbar, WeatherInfo, CityInfo } from "../../components/Sidebar";
 import logo from "../../assets/weather-app-logo.png";
 
 export function Sidebar({
-    setInputCity,
+    onSearch,
     onLocate,
     currentWeatherData,
     loading,
@@ -24,7 +24,7 @@ export function Sidebar({
                     </span>
                 </div>
                 <Searchbar
-                    setInputCity={setInputCity}
+                    onSearch={onSearch}
                     onLocate={onLocate}
                     loading={loading}
                 />

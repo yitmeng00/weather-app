@@ -19,7 +19,7 @@ export function TodayWeather({ forecastWeatherData, loading }) {
         return (
             <div className="mb-8">
                 <p className="md:text-[16px] text-md font-medium uppercase tracking-widest text-slate-500 mb-4">
-                    Today's Weather
+                    Today&apos;s Weather
                 </p>
                 <div className="flex gap-3 overflow-hidden">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -40,7 +40,7 @@ export function TodayWeather({ forecastWeatherData, loading }) {
     return (
         <div className="mb-8">
             <p className="md:text-[16px] text-sm font-medium uppercase tracking-widest text-slate-500 mb-2">
-                Today's Weather
+                Today&apos;s Weather
             </p>
             <div className="flex gap-3 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {list.map((item, i) => {
