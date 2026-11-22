@@ -2,12 +2,12 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faSpinner, faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
 
-export function Searchbar({ setInputCity, onLocate, loading }) {
+export function Searchbar({ onSearch, onLocate, loading }) {
     const [city, setCity] = useState("");
     const [focused, setFocused] = useState(false);
 
     const handleSearch = () => {
-        if (city.trim()) setInputCity(city.trim());
+        if (city.trim()) onSearch(city.trim());
     };
 
     const handleKeyDown = (e) => {

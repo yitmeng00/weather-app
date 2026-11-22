@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Sidebar from "./layouts/Sidebar";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import axios from "axios";
@@ -9,14 +9,13 @@ const API_BASE_ENDPOINT = "https://api.openweathermap.org/data/";
 const UNITS = "metric";
 
 function App() {
-    const [inputCity, setInputCity] = useState("");
     const [currentWeatherData, setCurrentWeatherData] = useState(null);
     const [forecastWeatherData, setForecastWeatherData] = useState(null);
     const [airQualityData, setAirQualityData] = useState(null);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    const fetchWeatherByCoords = async (lat, lon) => {
+    const fetchWeatherByCoords = useCallback(async (lat, lon) => {
         if (!API_KEY) {
             setError("Missing OpenWeather API key.");
             setLoading(false);
@@ -48,9 +47,9 @@ function App() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
-    const fetchByCity = async (city) => {
+    const fetchByCity = useCallback(async (city) => {
         try {
             setLoading(true);
             setError(null);
@@ -67,9 +66,9 @@ function App() {
             setError(err.message);
             setLoading(false);
         }
-    };
+    }, [fetchWeatherByCoords]);
 
-    const fetchByGeolocation = () => {
+    const fetchByGeolocation = useCallback(() => {
         if (!navigator.geolocation) {
             fetchByCity("Kuala Lumpur");
             return;
@@ -80,20 +79,20 @@ function App() {
             () => fetchByCity("Kuala Lumpur"),
             { timeout: 10000 },
         );
-    };
+    }, [fetchByCity, fetchWeatherByCoords]);
 
+    // Load weather for the user's location once on mount. The only synchronous
+    // setState path (no geolocation support -> fetchByCity) sets loading=true /
+    // error=null, which already match the initial state, so no cascading render.
     useEffect(() => {
-        if (inputCity.trim()) {
-            fetchByCity(inputCity);
-        } else {
-            fetchByGeolocation();
-        }
-    }, [inputCity]);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchByGeolocation();
+    }, [fetchByGeolocation]);
 
     return (
         <div className="flex flex-col lg:flex-row min-h-screen">
             <Sidebar
-                setInputCity={setInputCity}
+                onSearch={fetchByCity}
                 onLocate={fetchByGeolocation}
                 currentWeatherData={currentWeatherData}
                 loading={loading}
