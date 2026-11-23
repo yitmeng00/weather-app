@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/React-19.x-61DAFB?logo=react)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4.x-38B2AC?logo=tailwind-css)
 
-> A simple, responsive weather application that delivers current weather updates, 5-hourly forecasts, and multi-day outlooks — powered by the OpenWeather API.
+> A simple, responsive weather application that delivers current weather updates, 3-hourly forecasts, air quality, and multi-day outlooks — powered by the OpenWeather API.
 
 ---
 
@@ -19,6 +19,7 @@
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
+- [Available Scripts](#available-scripts)
 - [License](#license)
 
 ---
@@ -33,10 +34,12 @@ This weather app is designed to provide accurate and up-to-date weather informat
 
 | Feature | Description |
 |---|---|
-| 🌡️ Current Weather | Current temperature, humidity, wind speed, and conditions |
+| 🌡️ Current Weather | Current temperature and conditions |
+| ✨ Today's Highlights | Feels-like temperature, humidity, pressure, wind speed, and sunrise & sunset times |
+| 🌫️ Air Quality | Air Quality Index (AQI) for the selected location |
 | ⏱️ 3-Hourly Forecast | Weather breakdown in 3-hour intervals for the current day |
 | 📅 Multi-Day Outlook | Weather forecast spanning the next 5 days |
-| 📍 Auto Location | Automatically detects and displays local weather |
+| 📍 Auto Location | Automatically detects and displays local weather, falling back to Kuala Lumpur if location access is unavailable |
 | 🔍 Global Search | Search for weather information for any location worldwide |
 
 ---
@@ -66,6 +69,9 @@ This weather app is designed to provide accurate and up-to-date weather informat
 | [Vite](https://vitejs.dev/) | 8.x | Build tool and dev server |
 | [React](https://react.dev/) | 19.x | UI framework |
 | [Tailwind CSS](https://tailwindcss.com/) | 4.x | Utility-first styling |
+| [Axios](https://axios-http.com/) | 1.x | HTTP client for API requests |
+| [Font Awesome](https://fontawesome.com/) | 7.x | Icons |
+| [ESLint](https://eslint.org/) | 9.x | Linting |
 | [OpenWeather API](https://openweathermap.org/api) | 2.5 | Weather data provider |
 | HTML5 / CSS3 | — | Markup and base styling |
 
@@ -75,8 +81,8 @@ This weather app is designed to provide accurate and up-to-date weather informat
 
 Before getting started, ensure you have the following installed:
 
-- **Node.js** v18 or higher
-- **npm** v9 or higher
+- **Node.js** v20.19+ or v22.12+ (required by Vite 8)
+- **npm** v10 or higher
 - An active **OpenWeather API** key — [register here](https://openweathermap.org/)
 
 ---
@@ -86,7 +92,7 @@ Before getting started, ensure you have the following installed:
 1. **Clone the repository**
 
 ```bash
-   git clone https://github.com/your-org/weather-app.git
+   git clone https://github.com/yitmeng00/weather-app.git
    cd weather-app
 ```
 
@@ -101,7 +107,7 @@ Before getting started, ensure you have the following installed:
 4. **Start the development server**
 
 ```bash
-   npx vite
+   npm run dev
 ```
 
    The app will be available at `http://localhost:5173` by default.
@@ -120,9 +126,21 @@ VITE_OPENWEATHER_API_KEY=your_api_key_here
 
 ## Usage
 
-- On first load, the app will request browser permission to access your location for automatic local weather.
+- On first load, the app will request browser permission to access your location for automatic local weather. If permission is denied or unavailable, it shows weather for Kuala Lumpur.
+- Use the 📍 button in the search bar to reload weather for your current location.
 - Use the search bar to look up weather for any city or region worldwide.
 - View both 3-hourly and multi-day forecasts directly on the dashboard.
+
+---
+
+## Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server with hot reload |
+| `npm run build` | Build the app for production into `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Run ESLint on the project |
 
 ---
 
